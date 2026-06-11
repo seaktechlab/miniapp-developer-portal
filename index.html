@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACLEDA Developers — Mini App Integration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/app.js"></script>
+</head>
+<body>
+
+<div class="portal">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0F1929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <div class="brand-name">ACLEDA <span>Docs</span></div>
+      </div>
+      <div class="brand-desc">Mini App Partner Integration<br>Technical Specification v1.0</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Documentation</div>
+
+      <a href="#overview" class="nav-item active">
+        <div class="nav-pip"></div>
+        Overview
+      </a>
+      <a href="#diagram" class="nav-item">
+        <div class="nav-pip"></div>
+        Technical Architecture
+      </a>
+      <a href="#customer-flow" class="nav-item">
+        <div class="nav-pip"></div>
+        Customer Journey
+      </a>
+      <div class="nav-label">Integration Steps</div>
+
+      <a href="#session" class="nav-item">
+        <div class="nav-step">1</div>
+        Session Initialization
+      </a>
+      <a href="#response" class="nav-item">
+        <div class="nav-step">2</div>
+        Session Response
+      </a>
+      <a href="#bridge" class="nav-item">
+        <div class="nav-step">3</div>
+        JavaScript Bridge
+      </a>
+      <a href="#payment" class="nav-item">
+        <div class="nav-step">4</div>
+        Payment Request
+      </a>
+      <a href="#callback" class="nav-item">
+        <div class="nav-step">5</div>
+        Payment Callback
+      </a>
+      <a href="#redirect" class="nav-item">
+        <div class="nav-step">6</div>
+        Redirect URL
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="version-badge">
+        <div class="version-dot"></div>
+        v1.0 — Stable
+      </div>
+      <div>ACLEDA Bank Plc. · Developer Platform</div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ─────────────────────────────────────────────────── -->
+  <main class="content">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-path">
+        <span>Docs</span>
+        <span class="topbar-path-sep">/</span>
+        <span>Mini App</span>
+        <span class="topbar-path-sep">/</span>
+        Integration Guide
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-btn" onclick="window.print()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print
+        </button>
+      </div>
+    </div>
+
+    <!-- Page -->
+    <div class="page">
+
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-glow-2"></div>
+        <div class="hero-inner">
+          <div class="hero-eyebrow">
+            <div class="hero-eyebrow-dot"></div>
+            ACLEDA Mini App Platform
+          </div>
+          <h1>Mini App<br><em>Integration Specification</em></h1>
+          <p class="hero-desc">
+            This document describes the technical integration between ACLEDA Mobile Application
+            and Partner Mini Applications — covering session initialization, the native JavaScript
+            bridge, payment flows, and callback validation.
+          </p>
+          <div class="hero-meta">
+            <div class="hero-stat">
+              <div class="hero-stat-dot" style="background:var(--green)"></div>
+              iOS &amp; Android
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-dot" style="background:var(--blue)"></div>
+              WebView Bridge
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-dot" style="background:var(--gold)"></div>
+              6 Integration Steps
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OVERVIEW -->
+      <section class="section" id="overview">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Quick Overview</div>
+            <div class="section-title">Integration Flow Summary</div>
+          </div>
+          <div class="section-badge gold">4 Phases</div>
+        </div>
+        <p>The following flow describes the complete Mini App integration lifecycle between ACLEDA Mobile Application and partner systems. Each phase builds on the previous, from launching the WebView through to validated payment results.</p>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">Step 01</div>
+            <h3>Launch Mini App</h3>
+            <p>ACLEDA App opens the partner Mini Application inside a secure, isolated WebView environment.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 02</div>
+            <h3>Optional Session</h3>
+            <p>Partner may request authenticated customer context including user ID, phone, and display name.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 03</div>
+            <h3>Payment Request</h3>
+            <p>Mini App initiates ACLEDA payment flow through the <code>acledaJSBridge</code> native bridge.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-num">Step 04</div>
+            <h3>Callback Result</h3>
+            <p>Payment completion callback is returned to the Mini Application via <code>window.onPaymentResult</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARCHITECTURE DIAGRAM -->
+      <section class="section" id="diagram">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Integration Diagram</div>
+            <div class="section-title">End-to-End Architecture Flow</div>
+          </div>
+          <div class="section-badge blue">System Design</div>
+        </div>
+        <p>The architecture below demonstrates the communication flow between ACLEDA App, Partner Backend, Mini Application, payment service, and callback validation layer.</p>
+
+        <div class="flow-wrap">
+          <div class="flow-header">ARCHITECTURE · REQUEST FLOW</div>
+          <div class="flow-body">
+            <div class="flow-steps">
+
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4A80F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">ACLEDA Mobile App</div>
+                  <div class="flow-step-sub">Customer opens the ACLEDA app and navigates to the Mini App launcher</div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#C89B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">Optional Session Initialization</div>
+                  <div class="flow-step-sub">Partner backend calls <code style="color:#F0C866;background:rgba(200,155,60,0.12);padding:1px 6px;border-radius:4px;font-size:11px;">POST /miniapp/session</code> to obtain an authenticated session URL</div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#67E8F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">Mini App WebView</div>
+                  <div class="flow-step-sub">Secure WebView loads the partner Mini App at the session URL</div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">acledaJSBridge Native Bridge</div>
+                  <div class="flow-step-sub">Mini App communicates with native layer via the unified JS bridge (iOS + Android)</div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">ACLEDA Payment Flow</div>
+                  <div class="flow-step-sub">Native payment screen is presented, customer authenticates and confirms</div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  </div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">Payment Result Callback</div>
+                  <div class="flow-step-sub">Native calls <code style="color:#67E8F9;background:rgba(103,232,249,0.08);padding:1px 6px;border-radius:4px;font-size:11px;">window.onPaymentResult</code> with batchId and status</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <img
+            src="./assets/acleda_miniapp_integration_flow.png"
+            class="diagram-img"
+            alt="ACLEDA Mini App Architecture Diagram"
+        />
+      </section>
+      <!-- CUSTOMER JOURNEY -->
+<section class="section" id="customer-flow">
+
+    <div class="section-head">
+      <div class="section-title-group">
+        <div class="section-eyebrow">User Experience Flow</div>
+        <div class="section-title">Customer Journey Flow</div>
+      </div>
+      <div class="section-badge blue">UX Flow</div>
+    </div>
+  
+    <p>
+      This customer journey illustrates the complete user experience
+      from launching a Mini App inside ACLEDA Mobile through payment
+      confirmation and returning to the merchant service.
+    </p>
+  
+    <div class="callout blue">
+      <div class="callout-icon">
+        <svg viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+  
+      <div class="callout-body">
+        <div class="callout-title">
+          End-to-End Customer Experience
+        </div>
+  
+        <div class="callout-text">
+          Covers customer navigation from ACLEDA Mobile,
+          Mini App interaction, payment confirmation,
+          and payment completion.
+        </div>
+      </div>
+    </div>
+  
+    <img
+      src="./assets/acleda_miniapp_customer_journey_flow.png"
+      class="diagram-img"
+      alt="ACLEDA Mini App Customer Journey Flow"
+    />
+  
+  </section>
+
+      <!-- SESSION INIT -->
+      <section class="section" id="session">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Step 01 · Optional API</div>
+            <div class="section-title">Session Initialization</div>
+          </div>
+          <div class="section-badge gold">Optional</div>
+        </div>
+        <p>Partners may optionally initialize a Mini App session before launching the WebView experience. This step is recommended when the partner application requires authenticated customer information such as user identifier, phone number, or display name.</p>
+
+        <div class="callout gold">
+          <div class="callout-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="callout-body">
+            <div class="callout-title">Optional Integration</div>
+            <div class="callout-text">Session initialization is not required for all Mini Apps. Partners may directly open public Mini App experiences without authenticated customer information.</div>
+          </div>
+        </div>
+
+        <div class="endpoint-tag">
+          <span class="method-pill">POST</span>
+          /miniapp/session
+        </div>
+
+        <div class="code-block">
+          <div class="code-chrome">
+            <div class="chrome-left">
+              <div class="chrome-dots">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot yellow"></div>
+                <div class="chrome-dot green"></div>
+              </div>
+              <div class="chrome-filename">session-request.json</div>
+            </div>
+            <div class="chrome-actions">
+              <button class="copy-btn" data-target="code1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body">
+<pre id="code1"><span class="t-type">POST</span> /miniapp/session
+
+<span class="t-punct">{</span>
+  <span class="t-prop">"phone"</span><span class="t-punct">:</span>      <span class="t-string">"012345678"</span><span class="t-punct">,</span>
+  <span class="t-prop">"first_name"</span><span class="t-punct">:</span> <span class="t-string">"LyZing"</span><span class="t-punct">,</span>
+  <span class="t-prop">"last_name"</span><span class="t-punct">:</span>  <span class="t-string">"Seak"</span>
+<span class="t-punct">}</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- SESSION RESPONSE -->
+      <section class="section" id="response">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Step 02 · JSON Response</div>
+            <div class="section-title">Session Response</div>
+          </div>
+          <div class="section-badge">200 OK</div>
+        </div>
+        <p>On success, the API returns a <code>miniAppUrl</code> — a signed URL containing the session token. Pass this URL to the ACLEDA App WebView launcher to open the authenticated Mini App experience.</p>
+
+        <div class="code-block">
+          <div class="code-chrome">
+            <div class="chrome-left">
+              <div class="chrome-dots">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot yellow"></div>
+                <div class="chrome-dot green"></div>
+              </div>
+              <div class="chrome-filename">session-response.json</div>
+            </div>
+            <div class="chrome-actions">
+              <button class="copy-btn" data-target="code2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body">
+<pre id="code2"><span class="t-punct">{</span>
+  <span class="t-prop">"miniAppUrl"</span><span class="t-punct">:</span> <span class="t-string">"https://miniapp.partner.com/session/abc123"</span>
+<span class="t-punct">}</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- JS BRIDGE -->
+      <section class="section" id="bridge">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Step 03 · Native Bridge</div>
+            <div class="section-title">acledaJSBridge</div>
+          </div>
+          <div class="section-badge blue">iOS + Android</div>
+        </div>
+        <p>Mini Applications communicate with ACLEDA Mobile Application through the <code>acledaJSBridge</code> native bridge. It supports both iOS WKWebView (<code>webkit.messageHandlers.acledaIOSJSBridge</code>) and Android WebView (<code>acledaAndroidJSBridge</code>), with a unified <code>call()</code> method that handles both platforms automatically.</p>
+
+        <div class="callout blue">
+          <div class="callout-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="callout-body">
+            <div class="callout-title">Include this snippet in your Mini App</div>
+            <div class="callout-text">Paste the bridge initializer at the top of your HTML before any other script. This ensures the bridge is available when the native layer injects its handlers.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-chrome">
+            <div class="chrome-left">
+              <div class="chrome-dots">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot yellow"></div>
+                <div class="chrome-dot green"></div>
+              </div>
+              <div class="chrome-filename">acleda-bridge.js</div>
+            </div>
+            <div class="chrome-actions">
+              <button class="copy-btn" data-target="code3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body">
+<pre id="code3"><span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">acledaJSBridge</span> <span class="t-punct">= {</span>
+  <span class="t-fn">call</span><span class="t-punct">:</span> <span class="t-keyword">function</span> <span class="t-punct">(</span><span class="t-value">action</span><span class="t-punct">,</span> <span class="t-value">data</span> <span class="t-punct">=</span> <span class="t-punct">{}) {</span>
+    <span class="t-fn">console</span><span class="t-punct">.</span><span class="t-fn">log</span><span class="t-punct">(</span><span class="t-string">"[acledaJSBridge] Action:"</span><span class="t-punct">,</span> <span class="t-value">action</span><span class="t-punct">);</span>
+    <span class="t-fn">console</span><span class="t-punct">.</span><span class="t-fn">log</span><span class="t-punct">(</span><span class="t-string">"[acledaJSBridge] Payload:"</span><span class="t-punct">,</span> <span class="t-value">data</span><span class="t-punct">);</span>
+    <span class="t-keyword">const</span> <span class="t-value">payload</span> <span class="t-punct">= {</span> <span class="t-value">action</span><span class="t-punct">,</span> <span class="t-value">data</span> <span class="t-punct">};</span>
+
+    <span class="t-comment">// iOS WKWebView</span>
+    <span class="t-keyword">if</span> <span class="t-punct">(</span>
+      <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">webkit</span> <span class="t-punct">&&</span>
+      <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">webkit</span><span class="t-punct">.</span><span class="t-prop">messageHandlers</span> <span class="t-punct">&&</span>
+      <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">webkit</span><span class="t-punct">.</span><span class="t-prop">messageHandlers</span><span class="t-punct">.</span><span class="t-fn">acledaIOSJSBridge</span>
+    <span class="t-punct">) {</span>
+      <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">webkit</span><span class="t-punct">.</span><span class="t-prop">messageHandlers</span><span class="t-punct">.</span><span class="t-fn">acledaIOSJSBridge</span>
+        <span class="t-punct">.</span><span class="t-fn">postMessage</span><span class="t-punct">(</span><span class="t-value">payload</span><span class="t-punct">);</span>
+      <span class="t-keyword">return</span><span class="t-punct">;</span>
+    <span class="t-punct">}</span>
+
+    <span class="t-comment">// Android WebView</span>
+    <span class="t-keyword">if</span> <span class="t-punct">(</span>
+      <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">acledaAndroidJSBridge</span> <span class="t-punct">&&</span>
+      <span class="t-keyword">typeof</span> <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">acledaAndroidJSBridge</span><span class="t-punct">.</span><span class="t-fn">postMessage</span> <span class="t-punct">===</span> <span class="t-string">"function"</span>
+    <span class="t-punct">) {</span>
+      <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">acledaAndroidJSBridge</span><span class="t-punct">.</span><span class="t-fn">postMessage</span><span class="t-punct">(</span>
+        <span class="t-type">JSON</span><span class="t-punct">.</span><span class="t-fn">stringify</span><span class="t-punct">(</span><span class="t-value">payload</span><span class="t-punct">)</span>
+      <span class="t-punct">);</span>
+      <span class="t-keyword">return</span><span class="t-punct">;</span>
+    <span class="t-punct">}</span>
+
+    <span class="t-fn">console</span><span class="t-punct">.</span><span class="t-fn">warn</span><span class="t-punct">(</span><span class="t-string">"[acledaJSBridge] Native bridge not found"</span><span class="t-punct">);</span>
+  <span class="t-punct">}</span>
+<span class="t-punct">};</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAYMENT REQUEST -->
+      <section class="section" id="payment">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Step 04 · Payment Flow</div>
+            <div class="section-title">Initiate Payment Request</div>
+          </div>
+          <div class="section-badge gold">startPayment</div>
+        </div>
+        <p>Mini Applications initiate the ACLEDA payment flow by calling <code>window.acledaJSBridge.call()</code> with the <code>startPayment</code> action and the ACLEDA deeplink. Always define <code>window.onPaymentResult</code> <strong>before</strong> calling the bridge to ensure the callback is ready to receive the result.</p>
+
+        <div class="code-block">
+          <div class="code-chrome">
+            <div class="chrome-left">
+              <div class="chrome-dots">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot yellow"></div>
+                <div class="chrome-dot green"></div>
+              </div>
+              <div class="chrome-filename">payment-request.js</div>
+            </div>
+            <div class="chrome-actions">
+              <button class="copy-btn" data-target="code4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body">
+<pre id="code4"><span class="t-comment">// Step 1: Define callback BEFORE initiating payment</span>
+<span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">onPaymentResult</span> <span class="t-punct">=</span> <span class="t-keyword">function</span> <span class="t-punct">(</span><span class="t-value">result</span><span class="t-punct">) {</span>
+  <span class="t-fn">console</span><span class="t-punct">.</span><span class="t-fn">log</span><span class="t-punct">(</span><span class="t-string">"[acledaJSBridge] Payment result:"</span><span class="t-punct">,</span> <span class="t-value">result</span><span class="t-punct">);</span>
+
+  <span class="t-comment">// result.batchId  — transaction batch ID</span>
+  <span class="t-comment">// result.status   — "success" | "failed" | "cancelled"</span>
+<span class="t-punct">};</span>
+
+<span class="t-comment">// Step 2: Initiate payment via native bridge</span>
+<span class="t-fn">window</span><span class="t-punct">.</span><span class="t-fn">acledaJSBridge</span><span class="t-punct">.</span><span class="t-fn">call</span><span class="t-punct">(</span>
+  <span class="t-string">"startPayment"</span><span class="t-punct">,</span>
+  <span class="t-punct">{</span>
+    <span class="t-prop">acleda_deeplink</span><span class="t-punct">:</span> <span class="t-string">"acledabank://payment/abc123"</span>
+  <span class="t-punct">}</span>
+<span class="t-punct">);</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALLBACK -->
+      <section class="section" id="callback">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Step 05 · Callback</div>
+            <div class="section-title">Payment Result Callback</div>
+          </div>
+          <div class="section-badge">Native → JS</div>
+        </div>
+        <p>After payment completion, ACLEDA Mobile App invokes <code>window.onPaymentResult</code> directly from the native layer via <code>WKWebView.evaluateJavaScript</code> (iOS) or <code>WebView.evaluateJavascript</code> (Android). The Mini App must expose this function globally before initiating any payment.</p>
+
+        <div class="callout gold">
+          <div class="callout-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="callout-body">
+            <div class="callout-title">Register the callback before calling startPayment</div>
+            <div class="callout-text">If <code>window.onPaymentResult</code> is not defined when the native layer attempts to invoke it, the payment result will be silently lost.</div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-chrome">
+            <div class="chrome-left">
+              <div class="chrome-dots">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot yellow"></div>
+                <div class="chrome-dot green"></div>
+              </div>
+              <div class="chrome-filename">payment-callback.js</div>
+            </div>
+            <div class="chrome-actions">
+              <button class="copy-btn" data-target="code5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body">
+<pre id="code5"><span class="t-comment">// Native layer calls this after payment completes</span>
+<span class="t-fn">window</span><span class="t-punct">.</span><span class="t-prop">onPaymentResult</span> <span class="t-punct">=</span> <span class="t-keyword">function</span> <span class="t-punct">(</span><span class="t-value">result</span><span class="t-punct">) {</span>
+  <span class="t-fn">console</span><span class="t-punct">.</span><span class="t-fn">log</span><span class="t-punct">(</span><span class="t-string">"[acledaJSBridge] Payment result:"</span><span class="t-punct">,</span> <span class="t-value">result</span><span class="t-punct">);</span>
+
+  <span class="t-comment">// result.batchId  — transaction batch ID</span>
+  <span class="t-comment">// result.status   — "success" | "failed" | "cancelled"</span>
+<span class="t-punct">};</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- REDIRECT URL -->
+      <section class="section" id="redirect">
+        <div class="section-head">
+          <div class="section-title-group">
+            <div class="section-eyebrow">Step 06 · Alternative</div>
+            <div class="section-title">Payment Redirect URL</div>
+          </div>
+          <div class="section-badge">Optional</div>
+        </div>
+        <p>Partners may optionally configure a payment result redirect URL to return customers back to the Mini Application after payment completion. This flow enables Mini Applications to display payment result status, transaction details, or continue the post-payment experience without relying on the JS callback.</p>
+
+        <div class="code-block">
+          <div class="code-chrome">
+            <div class="chrome-left">
+              <div class="chrome-dots">
+                <div class="chrome-dot red"></div>
+                <div class="chrome-dot yellow"></div>
+                <div class="chrome-dot green"></div>
+              </div>
+              <div class="chrome-filename">redirect-url.txt</div>
+            </div>
+            <div class="chrome-actions">
+              <button class="copy-btn" data-target="code6">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+          </div>
+          <div class="code-body">
+<pre id="code6"><span class="t-type">GET</span> <span class="t-string">https://miniapp.partner.com/payment/result</span><span class="t-punct">?</span><span class="t-prop">batchId</span><span class="t-punct">=</span><span class="t-value">847291</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <div class="page-footer">
+        <div>
+          <div class="footer-brand">ACLEDA <span>Developers</span></div>
+          <div class="footer-note">Mini App Integration Specification · v1.0 · ACLEDA Bank Plc.</div>
+        </div>
+        <div class="footer-links">
+          <a href="#top" class="footer-link">↑ Back to top</a>
+        </div>
+      </div>
+
+    </div><!-- /page -->
+  </main>
+
+</div><!-- /portal -->
+
+
+</body>
+</html>
