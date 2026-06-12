@@ -1,0 +1,19 @@
+@media (max-width: 960px) {
+    .sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+    .content { margin-left: 0; width: 100%; }
+    .portal { flex-direction: column; }
+    .page { padding: 24px 20px 60px; }
+    .topbar { padding: 0 20px; }
+    .hero { padding: 36px 28px; }
+    .hero h1 { font-size: 30px; }
+    .section { padding: 24px; }
+    .steps-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow-dot { animation: none; }
+  }

@@ -1,0 +1,45 @@
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .step-card {
+    background: var(--page-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .step-card:hover {
+    border-color: rgba(200,155,60,0.35);
+    box-shadow: 0 4px 20px rgba(200,155,60,0.08);
+  }
+  .step-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid rgba(200,155,60,0.2);
+    padding: 3px 9px;
+    border-radius: 99px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .step-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .step-card p {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    margin: 0;
+  }

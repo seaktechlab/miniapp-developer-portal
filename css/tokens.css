@@ -1,0 +1,26 @@
+/* ── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --navy:        #060D1F;
+  --navy-mid:    #0C1630;
+  --navy-soft:   #111E3A;
+  --navy-border: rgba(255,255,255,0.07);
+  --gold:        #C89B3C;
+  --gold-light:  #F0C866;
+  --gold-dim:    rgba(200,155,60,0.14);
+  --blue:        #4A80F0;
+  --blue-dim:    rgba(74,128,240,0.10);
+  --page-bg:     #F0F4FA;
+  --card-bg:     #FFFFFF;
+  --border:      #E2E8F4;
+  --text:        #0F1929;
+  --text-mid:    #4A5568;
+  --text-soft:   #8896B0;
+  --green:       #34D399;
+  --red:         #F87171;
+  --purple:      #A78BFA;
+  --cyan:        #67E8F9;
+  --sidebar-w:   280px;
+  --radius-lg:   20px;
+  --radius-md:   14px;
+  --radius-sm:   8px;
+}

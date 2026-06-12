@@ -1,0 +1,38 @@
+.topbar {
+    position: sticky;
+    top: 0; z-index: 50;
+    background: rgba(240,244,250,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-path {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+  .topbar-path span { color: var(--text-mid); font-weight: 500; }
+  .topbar-path-sep { color: var(--border); }
+  .topbar-actions { display: flex; align-items: center; gap: 10px; }
+  .topbar-btn {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .topbar-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .topbar-btn svg { width: 13px; height: 13px; }
