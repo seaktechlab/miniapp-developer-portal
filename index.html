@@ -189,188 +189,160 @@
           </div>
         </section>
 
-      <!-- ARCHITECTURE FLOW -->
-<div class="flow-wrap">
+        <!-- ARCHITECTURE FLOW -->
+        <!-- FIX 1: Added id="diagram" so the sidebar nav link #diagram works correctly -->
+        <div class="flow-wrap" id="diagram">
 
-  <div class="flow-header">
-    ARCHITECTURE · REQUEST FLOW
-  </div>
-
-  <div class="flow-body">
-
-    <div class="flow-steps">
-
-      <!-- STEP 1 -->
-      <div class="flow-step">
-
-        <div class="flow-step-line">
-          <div class="flow-node">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#4A80F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="5" y="2" width="14" height="20" rx="2"/>
-              <line x1="12" y1="18" x2="12.01" y2="18"/>
-            </svg>
+          <div class="flow-header">
+            ARCHITECTURE · REQUEST FLOW
           </div>
-          <div class="flow-connector"></div>
+
+          <div class="flow-body">
+
+            <div class="flow-steps">
+
+              <!-- STEP 1 -->
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4A80F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="5" y="2" width="14" height="20" rx="2"/>
+                      <line x1="12" y1="18" x2="12.01" y2="18"/>
+                    </svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">
+                    ACLEDA Mobile App
+                  </div>
+                  <div class="flow-step-sub">
+                    Customer opens the ACLEDA app and navigates to the Mini App launcher.
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#C89B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">
+                    Session Initialization (SSO)
+                  </div>
+                  <div class="flow-step-sub">
+                    ACLEDA Mobile invokes the Partner SSO API.
+                    The Partner Backend authenticates or registers the customer,
+                    creates a session, and returns a Mini App URL.
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3 -->
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#67E8F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="3" width="20" height="14" rx="2"/>
+                      <path d="M8 21h8M12 17v4"/>
+                    </svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">
+                    Mini App WebView
+                  </div>
+                  <div class="flow-step-sub">
+                    Secure WebView loads the Partner Mini App using the session URL.
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4 -->
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="16 18 22 12 16 6"/>
+                      <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">
+                    acledaJSBridge Native Bridge
+                  </div>
+                  <div class="flow-step-sub">
+                    Mini App communicates with the native layer through the unified JavaScript Bridge on both iOS and Android.
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 5 -->
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="1" y="4" width="22" height="16" rx="2"/>
+                      <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                  </div>
+                  <div class="flow-connector"></div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">
+                    ACLEDA Payment Flow
+                  </div>
+                  <div class="flow-step-sub">
+                    Native payment screen is presented and the customer authenticates and confirms the transaction.
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 6 -->
+              <div class="flow-step">
+                <div class="flow-step-line">
+                  <div class="flow-node">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                      <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="flow-step-info">
+                  <div class="flow-step-label">
+                    Payment Result Callback
+                  </div>
+                  <div class="flow-step-sub">
+                    Native calls
+                    <code style="color:#67E8F9;background:rgba(103,232,249,0.08);padding:1px 6px;border-radius:4px;font-size:11px;">
+                      window.onPaymentResult
+                    </code>
+                    with batchId and payment status.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <img
+              src="./assets/acleda_miniapp_integration_flow.png"
+              class="diagram-img"
+              alt="ACLEDA Mini App Architecture Diagram"
+            />
+
+          </div>
+
         </div>
 
-        <div class="flow-step-info">
-          <div class="flow-step-label">
-            ACLEDA Mobile App
-          </div>
-
-          <div class="flow-step-sub">
-            Customer opens the ACLEDA app and navigates to the Mini App launcher.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="flow-step">
-
-        <div class="flow-step-line">
-          <div class="flow-node">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#C89B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <div class="flow-connector"></div>
-        </div>
-
-        <div class="flow-step-info">
-          <div class="flow-step-label">
-            Session Initialization (SSO)
-          </div>
-
-          <div class="flow-step-sub">
-            ACLEDA Mobile invokes the Partner SSO API.
-            The Partner Backend authenticates or registers the customer,
-            creates a session, and returns a Mini App URL.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- STEP 3 -->
-      <div class="flow-step">
-
-        <div class="flow-step-line">
-          <div class="flow-node">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#67E8F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <path d="M8 21h8M12 17v4"/>
-            </svg>
-          </div>
-          <div class="flow-connector"></div>
-        </div>
-
-        <div class="flow-step-info">
-          <div class="flow-step-label">
-            Mini App WebView
-          </div>
-
-          <div class="flow-step-sub">
-            Secure WebView loads the Partner Mini App using the session URL.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="flow-step">
-
-        <div class="flow-step-line">
-          <div class="flow-node">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="16 18 22 12 16 6"/>
-              <polyline points="8 6 2 12 8 18"/>
-            </svg>
-          </div>
-          <div class="flow-connector"></div>
-        </div>
-
-        <div class="flow-step-info">
-          <div class="flow-step-label">
-            acledaJSBridge Native Bridge
-          </div>
-
-          <div class="flow-step-sub">
-            Mini App communicates with the native layer through the unified JavaScript Bridge on both iOS and Android.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- STEP 5 -->
-      <div class="flow-step">
-
-        <div class="flow-step-line">
-          <div class="flow-node">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="1" y="4" width="22" height="16" rx="2"/>
-              <line x1="1" y1="10" x2="23" y2="10"/>
-            </svg>
-          </div>
-          <div class="flow-connector"></div>
-        </div>
-
-        <div class="flow-step-info">
-          <div class="flow-step-label">
-            ACLEDA Payment Flow
-          </div>
-
-          <div class="flow-step-sub">
-            Native payment screen is presented and the customer authenticates and confirms the transaction.
-          </div>
-        </div>
-
-      </div>
-
-      <!-- STEP 6 -->
-      <div class="flow-step">
-
-        <div class="flow-step-line">
-          <div class="flow-node">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="flow-step-info">
-          <div class="flow-step-label">
-            Payment Result Callback
-          </div>
-
-          <div class="flow-step-sub">
-            Native calls
-            <code style="color:#67E8F9;background:rgba(103,232,249,0.08);padding:1px 6px;border-radius:4px;font-size:11px;">
-              window.onPaymentResult
-            </code>
-            with batchId and payment status.
-          </div>
-        </div>
-
-      </div>
-
-
-    </div>
-    <img
-    src="./assets/acleda_miniapp_integration_flow.png"
-    class="diagram-img"
-    alt="ACLEDA Mini App Architecture Diagram"
-  />
-  </div>
-
-
-
-</div>
-
-
-
-
-        
         <!-- CUSTOMER JOURNEY -->
         <section class="section" id="customer-flow">
 
@@ -395,12 +367,10 @@
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </div>
-
             <div class="callout-body">
               <div class="callout-title">
                 End-to-End Customer Experience
               </div>
-
               <div class="callout-text">
                 Covers customer navigation from ACLEDA Mobile,
                 Mini App interaction, payment confirmation,
@@ -421,7 +391,6 @@
               <div class="section-eyebrow">
                 Step 01 · Optional Authentication
               </div>
-
               <div class="section-title">
                 Session Initialization (SSO)
               </div>
@@ -438,6 +407,8 @@
 
             ACLEDA Mobile then launches the Mini App using the returned URL.
           </p>
+
+          <!-- FIX 2: Separated gold and blue callouts into siblings instead of nesting blue inside gold -->
           <div class="callout gold">
             <div class="callout-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -449,29 +420,28 @@
             </div>
             <div class="callout-body">
               <div class="callout-title">Partner-Owned Authentication</div>
-
               <div class="callout-text">
                 Customer authentication, registration, and session generation are performed by the Partner Backend.
 
                 ACLEDA Mobile consumes the returned Mini App URL and launches the Mini App.
               </div>
             </div>
-            <div class="callout blue">
-              <div class="callout-body">
-                <div class="callout-title">
-                  Customer Information Approval
-                </div>
+          </div>
+          <!-- FIX 2 (continued): blue callout is now a sibling of gold callout, not nested inside it -->
+          <div class="callout blue">
+            <div class="callout-body">
+              <div class="callout-title">
+                Customer Information Approval
+              </div>
+              <div class="callout-text">
+                Any customer information required for SSO,
+                including customer ID, phone number,
+                full name, or other profile attributes,
+                must be reviewed and approved by ACLEDA
+                prior to implementation.
 
-                <div class="callout-text">
-                  Any customer information required for SSO,
-                  including customer ID, phone number,
-                  full name, or other profile attributes,
-                  must be reviewed and approved by ACLEDA
-                  prior to implementation.
-
-                  Only approved customer information may be
-                  shared with the Partner.
-                </div>
+                Only approved customer information may be
+                shared with the Partner.
               </div>
             </div>
           </div>
@@ -521,7 +491,7 @@
           <div class="section-head">
             <div class="section-title-group">
               <div class="section-eyebrow">Step 02 · JSON Response</div>
-              <div class="section-title"> Session URL Response</div>
+              <div class="section-title">Session URL Response</div>
             </div>
             <div class="section-badge">200 OK</div>
           </div>
@@ -795,8 +765,7 @@
               </div>
             </div>
             <div class="code-body">
-              <pre
-                id="code6"><span class="t-type">GET</span> <span class="t-string">https://miniapp.partner.com/payment/result</span><span class="t-punct">?</span><span class="t-prop">batchId</span><span class="t-punct">=</span><span class="t-value">847291</span></pre>
+              <pre id="code6"><span class="t-type">GET</span> <span class="t-string">https://miniapp.partner.com/payment/result</span><span class="t-punct">?</span><span class="t-prop">batchId</span><span class="t-punct">=</span><span class="t-value">847291</span></pre>
             </div>
           </div>
         </section>
@@ -816,7 +785,6 @@
     </main>
 
   </div><!-- /portal -->
-
 
 </body>
 
