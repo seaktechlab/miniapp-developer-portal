@@ -16,6 +16,58 @@
 
 <body>
 
+  <!-- ── LOGIN OVERLAY ────────────────────────────────────────── -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+
+      <div class="login-brand">
+        <div class="login-brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0F1929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <path d="M8 21h8M12 17v4" />
+          </svg>
+        </div>
+        <div class="login-brand-name">ACLEDA <span>Docs</span></div>
+      </div>
+
+      <div class="login-heading">Developer Portal</div>
+      <div class="login-sub">Sign in to access the Mini App Integration Specification</div>
+
+      <div class="login-form">
+
+        <div class="login-field">
+          <label class="login-label" for="loginUsername">Username</label>
+          <input class="login-input" id="loginUsername" type="text" placeholder="Enter your username" autocomplete="off" />
+        </div>
+
+        <div class="login-field">
+          <label class="login-label" for="loginPassword">Password</label>
+          <div class="login-input-wrap">
+            <input class="login-input" id="loginPassword" type="password" placeholder="Enter your password" autocomplete="off" />
+            <button class="login-eye" id="loginEye" type="button" tabindex="-1">
+              <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-error" id="loginError">Incorrect username or password.</div>
+
+        <button class="login-btn" id="loginBtn" type="button">Sign In</button>
+
+      </div>
+
+      <div class="login-footer">ACLEDA Bank Plc. &middot; Developer Platform &middot; v1.0</div>
+
+    </div>
+  </div>
+
+
+  <script src="./js/login.js"></script>
+
+
   <div class="portal">
 
     <!-- ── SIDEBAR ──────────────────────────────────────────────── -->
@@ -107,6 +159,15 @@
               <rect x="6" y="14" width="12" height="8" />
             </svg>
             Print
+          </button>
+          <button class="topbar-btn topbar-btn-logout" id="logoutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            Logout
           </button>
         </div>
       </div>
@@ -651,9 +712,12 @@
 <span class="t-fn">window</span><span class="t-punct">.</span><span class="t-fn">acledaJSBridge</span><span class="t-punct">.</span><span class="t-fn">call</span><span class="t-punct">(</span>
   <span class="t-string">"startPayment"</span><span class="t-punct">,</span>
   <span class="t-punct">{</span>
-    <span class="t-prop">acleda_deeplink</span><span class="t-punct">:</span> <span class="t-string">"https://epaymentuat.acledabank.com.kh/acleda?partner_id={partner_id}&payment_data={encrypted_payment_data}"</span>
+    <span class="t-prop">acleda_deeplink</span><span class="t-punct">:</span> <span class="t-string">"&lt;acleda_deeplink&gt;"</span>
   <span class="t-punct">}</span>
 <span class="t-punct">);</span></pre>
+              <p class="note">
+                The <code>acleda_deeplink</code> value can be found in the <strong>Payment Integration Guide</strong>.
+              </p>
             </div>
           </div>
         </section>
