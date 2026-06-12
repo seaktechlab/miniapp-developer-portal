@@ -7,10 +7,8 @@
     // ────────────────────────────────────────────────────────────────
   
     var USERS = [
-      { username: "developer@acleda.com", password: "developer@acleda.com" },
-      { username: "acleda",               password: "acleda"          },
-      { username: "acleda",               password: "acleda@2025"          },
-      { username: "admin",                password: "admin@2025"           }
+      { username: "acleda", password: "acleda@2025" },
+      { username: "admin",  password: "admin@2025"  }
     ];
   
     function checkAuth() {
@@ -24,7 +22,7 @@
       if (logoutBtn && !logoutBtn._bound) {
         logoutBtn._bound = true;
         logoutBtn.addEventListener("click", function () {
-          if (!CONFIG.requireLogin) return;
+          if (!CONFIG.requireLogin) return; // no-op if login is disabled
           sessionStorage.removeItem("acledaAuth");
           document.getElementById("loginUsername").value = "";
           document.getElementById("loginPassword").value = "";
@@ -32,6 +30,7 @@
           document.getElementById("loginOverlay").classList.remove("hidden");
         });
       }
+      // Hide logout button when login is disabled
       if (!CONFIG.requireLogin && logoutBtn) {
         logoutBtn.style.display = "none";
       }
@@ -39,18 +38,11 @@
   
     function attemptLogin() {
       var u = document.getElementById("loginUsername").value.trim();
-      var p = document.getElementById("loginPassword").value.trim();
+      var p = document.getElementById("loginPassword").value;
       var err = document.getElementById("loginError");
-  
-      // Find matching user (case-sensitive username, case-sensitive password)
-      var match = false;
-      for (var i = 0; i < USERS.length; i++) {
-        if (USERS[i].username === u && USERS[i].password === p) {
-          match = true;
-          break;
-        }
-      }
-  
+      var match = USERS.some(function (cred) {
+        return cred.username === u && cred.password === p;
+      });
       if (match) {
         sessionStorage.setItem("acledaAuth", "true");
         err.classList.remove("visible");
@@ -63,7 +55,9 @@
     }
   
     document.addEventListener("DOMContentLoaded", function () {
+      // Skip login entirely if disabled
       if (!CONFIG.requireLogin) { showPortal(); return; }
+  
       if (checkAuth()) { showPortal(); return; }
   
       document.getElementById("loginUsername").addEventListener("keydown", function (e) {
